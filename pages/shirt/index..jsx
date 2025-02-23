@@ -5,25 +5,28 @@ import gsap from "gsap";
 import Link from "next/link";
 
 export default function Home() {
-  const [shirtColor, setShirtColor] = useState("red");
+  const [shirtColor, setShirtColor] = useState("#fff");
   const [bgColor, setBgColor] = useState("white");
 
   const getContrastColor = (color) => {
     const colorMap = {
       red: "#e0f7fa",
       green: "#ffebee",
-      blue: "#fff3e0",
+      blue: "#ffe0b2",
       purple: "#e8f5e9",
       yellow: "#ede7f6",
     };
-    return colorMap[color] || "#ffffff";
+    return colorMap[color] || "white";
   };
 
   useEffect(() => {
-    const contrastColor = getContrastColor(shirtColor);
-    setBgColor(contrastColor);
-    gsap.to("body", { backgroundColor: contrastColor, duration: 1 });
+    const newBgColor = getContrastColor(shirtColor);
+    setBgColor(newBgColor);
   }, [shirtColor]);
+
+  useEffect(() => {
+    gsap.to("body", { backgroundColor: bgColor, duration: 1 });
+  }, [bgColor]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center">
@@ -35,16 +38,17 @@ export default function Home() {
           Go Back
         </Link>
       </div>
-      <div className="w-full h-[70vh]">
+
+      <div className="w-full h-[60vh]">
         <Canvas
           gl={{ antialias: true }}
-          camera={{ fov: 75, position: [0, 0, 7] }}
+          camera={{ fov: 75, position: [0, 0, 6] }}
         >
           <Shirtpage color={shirtColor} />
         </Canvas>
       </div>
 
-      <div className="w-full flex justify-center mt-9 gap-4">
+      <div className="w-full flex justify-center mt-7 gap-4">
         <button
           className="w-[50px] h-[50px] bg-red-600 rounded-full shadow-lg"
           onClick={() => setShirtColor("red")}

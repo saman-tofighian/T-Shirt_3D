@@ -2,57 +2,59 @@ import Shirtpage from "@/components/Model/Shirtpage";
 import { Canvas } from "@react-three/fiber";
 import { useState, useEffect } from "react";
 import gsap from "gsap";
-import Link from "next/link";
 
 export default function Home() {
-  const [color, setColor] = useState("white");
+  const [shirtColor, setShirtColor] = useState("red");
+  const [bgColor, setBgColor] = useState("white");
 
-  // تغییر رنگ پس‌زمینه با GSAP
+  const getContrastColor = (color) => {
+    const colorMap = {
+      red: "#e0f7fa",
+      green: "#ffebee",
+      blue: "#fff3e0",
+      purple: "#e8f5e9",
+      yellow: "#ede7f6",
+    };
+    return colorMap[color] || "#ffffff";
+  };
+
   useEffect(() => {
-    gsap.to(document.body, { backgroundColor: color, duration: 1 });
-  }, [color]);
+    const contrastColor = getContrastColor(shirtColor);
+    setBgColor(contrastColor);
+    gsap.to("body", { backgroundColor: contrastColor, duration: 1 });
+  }, [shirtColor]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center">
-      {/* 👕 Canvas برای نمایش مدل سه‌بعدی */}
-      <div className="w-full flex justify-end px-[6%]">
-        <Link
-          href="/"
-          className="bg-[#efbd4e] shadow-xl rounded py-[15px] px-[30px] text-white"
-        >
-          Go Back
-        </Link>
-      </div>
       <div className="w-full h-[70vh]">
         <Canvas
           gl={{ antialias: true }}
-          camera={{ fov: 75, position: [0, 0, 6] }}
+          camera={{ fov: 75, position: [0, 0, 7] }}
         >
-          <Shirtpage color={color} />
+          <Shirtpage color={shirtColor} />
         </Canvas>
       </div>
 
-      {/* 🎨 دکمه‌های تغییر رنگ */}
       <div className="w-full flex justify-center mt-9 gap-4">
         <button
-          className="w-[40px] h-[40px] bg-red-600 rounded-full shadow-lg"
-          onClick={() => setColor("red")}
+          className="w-[50px] h-[50px] bg-red-600 rounded-full shadow-lg"
+          onClick={() => setShirtColor("red")}
         ></button>
         <button
-          className="w-[40px] h-[40px] bg-green-600 rounded-full shadow-lg"
-          onClick={() => setColor("green")}
+          className="w-[50px] h-[50px] bg-[#6ce67e] rounded-full shadow-lg"
+          onClick={() => setShirtColor("#6ce67e")}
         ></button>
         <button
-          className="w-[40px] h-[40px] bg-blue-600 rounded-full shadow-lg"
-          onClick={() => setColor("blue")}
+          className="w-[50px] h-[50px] bg-[#28d] rounded-full shadow-lg"
+          onClick={() => setShirtColor("#28d")}
         ></button>
         <button
-          className="w-[40px] h-[40px] bg-purple-600 rounded-full shadow-lg"
-          onClick={() => setColor("purple")}
+          className="w-[50px] h-[50px] bg-[#cb61e8] rounded-full shadow-lg"
+          onClick={() => setShirtColor("#cb61e8")}
         ></button>
         <button
-          className="w-[40px] h-[40px] bg-yellow-400 rounded-full shadow-lg"
-          onClick={() => setColor("yellow")}
+          className="w-[50px] h-[50px] bg-yellow-400 rounded-full shadow-lg"
+          onClick={() => setShirtColor("yellow")}
         ></button>
       </div>
     </div>

@@ -2,6 +2,7 @@ import Shirtpage from "@/components/Model/Shirtpage";
 import { Canvas } from "@react-three/fiber";
 import { useState, useEffect } from "react";
 import gsap from "gsap";
+import Link from "next/link";
 
 export default function Home() {
   const [shirtColor, setShirtColor] = useState("red");
@@ -26,6 +27,14 @@ export default function Home() {
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center">
+      <div className="w-full flex justify-end px-[6%]">
+        <Link
+          href="/"
+          className="bg-[#efbd4e] shadow-xl rounded py-[15px] px-[30px] text-white"
+        >
+          Go Back
+        </Link>
+      </div>
       <div className="w-full h-[70vh]">
         <Canvas
           gl={{ antialias: true }}

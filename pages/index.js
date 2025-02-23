@@ -24,7 +24,7 @@ export default function Home() {
           </div>
         </div>
         <div className="col-span-12 xl:col-span-7 py-7">
-          <Canvas gl={{ antialias: true }} camera={{ fov: 35 }}>
+          <Canvas gl={{ antialias: true }} camera={{ fov: 75 }}>
             <Tshirt />
           </Canvas>
         </div>
